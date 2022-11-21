@@ -22,6 +22,7 @@ class PostSeeder extends Seeder
             'title'=>'First post',
             'content'=>'First post ..............................................End of First Post',
             'created_at' => Carbon::now(),
+            'created_by'=>1
         ]);
 
     }

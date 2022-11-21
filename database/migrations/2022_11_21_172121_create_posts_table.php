@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title',100);
             $table->text('content');
             $table->foreignId('created_by');
-            $table->foreignId('deleted_by');
+            $table->foreignId('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
             //    //define constraints

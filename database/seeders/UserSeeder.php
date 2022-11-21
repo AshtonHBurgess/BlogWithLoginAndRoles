@@ -17,12 +17,35 @@ class UserSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('roles')->insert([
-            'name'=>'user',
-            'email'=>'asburgess@outlook.com',
-            'password'=>'password',
+//        DB::table('users')->insert([
+//            'name'=>'user',
+//            'email'=>'asburgess@outlook.com',
+//            'password'=>'password',
+//            'created_at' => Carbon::now(),
+//        ]);
+
+        DB::table('users')->insert([
+            'name'=>'Jane UserAdmin',
+            'email'=>'jane@example.com',
+            'password'=>'$2a$12$cpC8wo9MCDafTYy1.3E7uemqKLvkUBBnrTo8q9uhmndsElwItFnd2',
             'created_at' => Carbon::now(),
         ]);
+        DB::table('users')->insert([
+            'name'=>'Bob Moderator',
+            'email'=>'bob@example.com',
+            'password'=>'$2a$12$cpC8wo9MCDafTYy1.3E7uemqKLvkUBBnrTo8q9uhmndsElwItFnd2',
+            'created_at' => Carbon::now(),
+        ]);
+
+        DB::table('users')->insert([
+            'name'=>'Susan ThemeAdmin',
+            'email'=>'susan@example.com',
+            'password'=>'$2a$12$cpC8wo9MCDafTYy1.3E7uemqKLvkUBBnrTo8q9uhmndsElwItFnd2',
+            'created_at' => Carbon::now(),
+        ]);
+
+
+
 
     }
 }
