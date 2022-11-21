@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreignId('deleted_by');
+
+            $table->foreign('deleted_by')->references('id')->on('users');
         });
     }
 
