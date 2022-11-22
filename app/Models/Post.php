@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    function users(){
-        return $this->hasMany(User::class);
+    function user(){
+        return $this->belongsTo(User::class);
     }
 }

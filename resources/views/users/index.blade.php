@@ -34,11 +34,11 @@
 
 {{--                                        <td >{{$user->roles->name}}</td>--}}
                                 <td>
-{{--                                   <ul>--}}
-{{--                                       @foreach($user->languages as $language)--}}
-{{--                                           <li>{{$language->name}}</li>--}}
-{{--                                       @endforeach--}}
-{{--                                   </ul>--}}
+                                   <ul>
+                                       @foreach($user->roles as $role)
+                                           <li>{{$role->name}}</li>
+                                       @endforeach
+                                   </ul>
                                 </td>
 {{--                                        <td >--}}
 {{--                                            //$people->first()->languages->find(1)->name--}}

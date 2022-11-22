@@ -23,10 +23,12 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('deleted_by')->nullable();
-
             $table->foreign('deleted_by')->references('id')->on('users');
         });
     }
+
+
+
 
     /**
      * Reverse the migrations.

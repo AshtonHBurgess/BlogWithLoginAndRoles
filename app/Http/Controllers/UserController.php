@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,9 +18,13 @@ class UserController extends Controller
     {
 
         $users = User::orderBy('name')->get();
+        $roles = Role::orderBy('name')->get();
+        $posts = Post::orderBy('title')->get();
+//        foreach($roles as $role){echo $role->name;}
+
 //        $users =  User::with('roles')->get();
 
-        return view('users.index', compact('users'));
+        return view('users.index', compact('users','roles'));
     }
 
     /**
@@ -29,7 +35,10 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('users.create');
+
+        $roles = Role::orderBy('name')->get();
+        return view('users.create',compact(['roles']));
+//        return view('users.create');
     }
 
     /**
@@ -48,18 +57,12 @@ class UserController extends Controller
                   'password'=>['required','max:255']
             ]
         );
-//
-//        save the data as a new country
-////        dd($request);
-/// //            'name'=>'Susan ThemeAdmin',
-//            'email'=>'susan@example.com',
-//            'password'=>'$2a$12$cpC8wo9MCDafTYy1.3E7uemqKLvkUBBnrTo8q9uhmndsElwItFnd2',
-//            'created_at' => Carbon::now(),
+
         User::create([
             'name' => $request->name,
             'email'=> $request->email,
             'password'=> $request->password,
-        ]);
+        ])->roles()->sync($request->role_ids);
         return redirect(route('users.index'))->with('status', 'has been added!');
 
     }
@@ -83,10 +86,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
-//
+//        $countries = Country::orderBy('name')->get();
+//        $languages = Language::orderBy('name')->get();
+//        return view('people.edit',compact(['person','countries','languages']));
 
-        return view('users.edit',compact('user'));
+
+        $roles = Role::orderBy('name')->get();
+        return view('users.edit',compact(['user','roles']));
     }
 
     /**
@@ -98,43 +104,24 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
 
-//        $request->validate(
-//            [
-//                'name'=>['required','unique:countries,name,'.$user->id,'max:100'],
-//                'flag_image_url'=>['required','unique:countries,flag_image_url,'.$user->id,'url', 'ends_with:jpg,jpeg,png,tiff,gif','max:255']
-//            ]
-//        );
         $request->validate(
             [
                 'name'=>['required','unique:users,name,'.$user->id,'max:100','max:100'],
                 'email'=>['required','unique:users,email,'.$user->id,'email','max:255'],
-                'password'=>['required','max:255']
+//                'password'=>['required','max:255']
             ]
         );
 
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
+        $user->name= $request->name;
+        $user->email= $request->email;
+//        $user->password= $request->password;
+        $user->save();
+        $user->roles()->sync($request->role_ids);
 
-
-        //            'name' => $request->name,
-        //            'email'=> $request->email,
-        //            'password'=> $request->password,
-//        $user->flag_image_url = $request->flag_image_url;
-        //        save the data as a new country
-
-        //        dd($request);
-        $user->save();//perform update
 
         return redirect(route('users.index'))->with('status', 'has been updated!');
-
-
-
-
-
     }
 
     /**
