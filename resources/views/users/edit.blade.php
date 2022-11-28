@@ -86,7 +86,7 @@
 
 
             <div class="form-check">
-                                    {{ (is_array(old('role_id')) && in_array($role->id, old('role_ids'))) ? 'checked' : '' }}
+                                    {{ (is_array(old('role_id')) && in_array($role->id, old('role_id'))) ? 'checked' : '' }}
                                     {{$checked = ''}}
                 @php  $checked = '' @endphp
 

@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -61,7 +62,7 @@ class UserController extends Controller
         User::create([
             'name' => $request->name,
             'email'=> $request->email,
-            'password'=> $request->password,
+            'password'=> Hash::Make($request->password),
         ])->roles()->sync($request->role_ids);
         return redirect(route('users.index'))->with('status', 'has been added!');
 
