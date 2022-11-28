@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -15,6 +17,17 @@ class PostController extends Controller
     public function index()
     {
         //
+
+//        $users = User::orderBy('name')->get();
+//        $roles = Role::orderBy('name')->get();
+        $posts = Post::orderBy('title')->get();
+//        foreach($roles as $role){echo $role->name;}
+
+//        $users =  User::with('roles')->get();
+
+        return view('posts.index', compact('posts'));
+
+
     }
 
     /**
@@ -25,6 +38,9 @@ class PostController extends Controller
     public function create()
     {
         //
+
+        $user = User::orderBy('name')->get();
+        return view('posts.create',compact(['user']));
     }
 
     /**
@@ -36,6 +52,21 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+
+        $request->validate(
+            [
+                'title'=>['required','unique:posts,title','max:100'],
+                'content'=>['required','max:1500']
+
+            ]
+        );
+
+        Post::create([
+            'title' => $request->title,
+            'content'=> $request->content,
+            'updated_at' => Carbon::now(),
+        ])->users()->sync($request->user_id);
+        return redirect(route('users.index'))->with('status', 'has been added!');
     }
 
     /**
