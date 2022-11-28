@@ -24,7 +24,9 @@ class CheckUserIsActive
             return $next($request);// allow the request to proceed on
         }
         return redirect()->back()->with('status','you are not an active user... access denied');
+//        return $next($request);// allow the request to proceed on
 //        dd('Not_Active');
+
 
 
 
