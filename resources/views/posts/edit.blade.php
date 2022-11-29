@@ -17,6 +17,17 @@
 
 
 
+                        @php
+                            $notGuest=false;
+                             if(!\Illuminate\Support\Facades\Auth::user() == null)
+                             {
+                                 $activeUser=\Illuminate\Support\Facades\Auth::user();
+                             $notGuest=true;
+                             }
+                        @endphp
+
+                        @if($notGuest)
+
 
     <form action="{{  route('posts.update', $post->id) }}" method="POST">
         @csrf
@@ -64,7 +75,10 @@
     </form>
 
 
+                        @else
+                            <a class= "btn border-danger" href ="{{ route('posts.index') }}">Return</a>
 
+                        @endif
 
                 </div>
             </div>
