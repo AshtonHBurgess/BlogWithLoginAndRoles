@@ -25,7 +25,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('User List') }}</div>
+                <div class="card-header">{{ __('Post List') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -48,9 +48,9 @@
                             <thead>
                             <tr>
 
-                                <th > Name</th>
+                                <th >Posts</th>
 
-                                <th colspan="2">Actions</th>
+{{--                                <th colspan="2">Actions</th>--}}
                             </tr>
                             </thead>
                             <tbody>
