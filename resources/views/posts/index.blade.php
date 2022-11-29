@@ -5,19 +5,22 @@
 @section('content')
 
 
+
+
+
     @php
-        {{
-
-
-            $roles =\Illuminate\Support\Facades\Auth::user()->roles;
-             $isModeratorOrCreator=false;
-        foreach($roles as $role) {
-            if ($role->id == 3) {
-                $isModeratorOrCreator = true;
+        $isModeratorOrCreator=false;
+                $notGuest=false;
+              if(!\Illuminate\Support\Facades\Auth::user() == null){
+                  $activeUser=\Illuminate\Support\Facades\Auth::user();
+              $notGuest=true;
+                $roles =$activeUser->roles;
+            foreach($roles as $role) {
+                if ($role->id == 3) {
+                    $isModeratorOrCreator = true;
+                }
             }
-        }
-
-        }}
+            }
         @endphp
 
 
@@ -38,7 +41,12 @@
 
 
 {{--                    Sould be hidden if guest--}}
-                    <a class= "btn btn-primary" href="{{ route('posts.create') }}">Create New Post</a>
+
+                        @if ($notGuest)
+                            <a class= "btn btn-primary" href="{{ route('posts.create') }}">Create New Post</a>
+                        @endif
+
+
 
                         <table class="table">
                             <thead>
@@ -53,43 +61,37 @@
                             @foreach($posts as $post)
                             <tr>
                                         <td >{{$post->title}}</td>
-
-{{--                                        <td >{{$user->roles->name}}</td>--}}
-{{--                                <td>--}}
-{{--                                   <ul>--}}
-{{--                                       @foreach($user->roles as $role)--}}
-{{--                                           <li>{{$role->name}}</li>--}}
-{{--                                       @endforeach--}}
-{{--                                   </ul>--}}
-{{--                                </td>--}}
-{{--                                        <td >--}}
-{{--                                            //$people->first()->languages->find(1)->name--}}
-
-{{--                                        @foreach($person->languages as $language)--}}
-{{--                                                @foreach($person->languges as $language)--}}
-{{--                                                <li>{{$language->name}}</li>--}}
-{{--                                            @endforeach--}}
-{{--                                        </td>--}}
                                         <td>
 
+                                           @php {{
+                                            $isPostCreator=false;
+                                            if($notGuest &&  $post->created_by == $activeUser->id) {
+                                               $isPostCreator=true;
+                                            }
 
-                                            @if ( $isModeratorOrCreator )
+                                            }}@endphp
+
+                                            @if ( $isModeratorOrCreator && $notGuest && $isPostCreator)
                                             <a class="btn btn-warning"href="{{ route('posts.edit',[ $post->id]) }}">Edit</a>
                                             @endif
 
 
                                         </td>
                                         <td>
-                                            @if ( $isModeratorOrCreator )
+                                            @if ( $isModeratorOrCreator && $notGuest && $isPostCreator)
                                             <form method="POST" action="{{ route('posts.destroy',$post->id)}}">
+
+
                                                 @csrf
                                             @method('DELETE')
-                                                @endif
+
                                                 <button type="submit" class=" btn btn-danger">Delete</button>
                                             </form>
+                                            @endif
+                                                @endforeach
                                         </td>
                                     </tr>
-                            @endforeach
+
 
 {{--                            </tr>--}}
                             </tbody>
