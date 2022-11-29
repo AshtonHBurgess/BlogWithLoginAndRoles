@@ -4,10 +4,6 @@
 
 @section('content')
 
-
-
-
-
     @php
         $isModeratorOrCreator=false;
                 $notGuest=false;
@@ -91,9 +87,6 @@
                                                 @endforeach
                                         </td>
                                     </tr>
-
-
-{{--                            </tr>--}}
                             </tbody>
                         </table>
 
