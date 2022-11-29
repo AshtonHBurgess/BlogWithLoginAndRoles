@@ -3,6 +3,8 @@
 {{--@error('flag_image_url')--}}
 @extends('layouts.app')
 
+{{--{{ dd(old('role_ids')) }}--}}
+
 {{--@error('name')--}}
 {{--{{message}}--}}
 {{--@enderror--}}
@@ -86,13 +88,13 @@
 
 
             <div class="form-check">
-                                    {{ (is_array(old('role_id')) && in_array($role->id, old('role_id'))) ? 'checked' : '' }}
-                                    {{$checked = ''}}
+{{--                                    {{ (is_array(old('role_id')) && in_array($role->id, old('role_id'))) ? 'checked' : '' }}--}}
+{{--                                    {{$checked = ''}}--}}
                 @php  $checked = '' @endphp
 
                 @if(old('role_ids'))
-                    @if(in_array($role->ids))
-                        @php$checked = 'checked' @endphp
+                    @if(in_array($role->id, old('role_ids')))
+                        @php $checked = 'checked' @endphp
                     @endif
                 @else
                     @if($user->roles->contains($role))
@@ -100,7 +102,7 @@
                     @endif
                 @endif
 
-                <input  {{$checked}}class="form-check-input" type="checkbox" value="{{$role->id}}" id="role-{{$role->id}}" name="role_ids[]">
+                <input {{$checked}} class="form-check-input" type="checkbox" value="{{$role->id}}" id="role-{{$role->id}}" name="role_ids[]">
                 <label class="form-check-label" for="role-{{$role->id}}">
                     {{$role->name}}
                 </label>
