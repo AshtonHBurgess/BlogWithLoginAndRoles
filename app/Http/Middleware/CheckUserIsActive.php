@@ -17,7 +17,7 @@ class CheckUserIsActive
      */
     public function handle(Request $request, Closure $next)
     {
-       $roles =Auth::user()->roles;// get the current logged in user
+       $roles =Auth::user()->roles;
          $tr=false;
         foreach($roles as $role) {
             if ($role->id == 1) {
@@ -29,12 +29,5 @@ class CheckUserIsActive
             return $next($request);
         }
         return redirect()->back()->with('status','you are not an active user... access denied');
-//        return $next($request);// allow the request to proceed on
-//        dd('Not_Active');
-
-
-
-
-
     }
 }

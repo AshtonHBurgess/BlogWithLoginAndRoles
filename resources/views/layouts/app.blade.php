@@ -60,9 +60,28 @@
 
 
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('posts.index') }}">{{ __('Posts') }}</a>
-                            </li>
+
+
+                        @php
+
+                            {{
+                                       $roles =Auth::user()->roles;
+                                    $tr=false;
+                                    foreach($roles as $role) {
+                                    if ($role->id == 1) {
+                                    $tr = true;
+                                    }
+                                    }
+                            }}
+                     @endphp
+                        @if($tr)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
+                                </li>
+
+
+                            @endif
+
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
