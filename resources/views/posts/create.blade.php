@@ -11,7 +11,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Users Create') }}</div>
+                <div class="card-header">{{ __('Posts Create') }}</div>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -20,7 +20,6 @@
                     @endif
 
 
-                    PROBLEM: I need to pass the current user id through to have the created by field
 
     <form action="{{  route('posts.store') }}" method="POST">
         @csrf
@@ -34,7 +33,7 @@
 
 
         <div class="form-group">
-            <label for="content">Email Address</label>
+            <label for="content">Content</label>
             <input name='content' type="text" class="form-control" id="content" value="{{old('content')}}" placeholder="Enter content ">
         </div>
         @error('content')

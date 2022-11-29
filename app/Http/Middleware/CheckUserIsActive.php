@@ -17,19 +17,18 @@ class CheckUserIsActive
      */
     public function handle(Request $request, Closure $next)
     {
-        Auth::user();// get the current logged in user
+       $roles =Auth::user()->roles;// get the current logged in user
+         $tr=false;
+        foreach($roles as $role) {
+            if ($role->id == 1) {
+                $tr = true;
+            }
+        }
+        if($tr){
 
-//        if(Auth::user()->is_active){
-//            return $next($request);// allow the request to proceed on
-//        }
-
-        //We are searching in our middleware for the user has a specific role
-
-        user()->role=="admin";
-
-
-
-        return redirect()->back()->with('status','you are not an admin user... access denied');
+            return $next($request);
+        }
+        return redirect()->back()->with('status','you are not an active user... access denied');
 //        return $next($request);// allow the request to proceed on
 //        dd('Not_Active');
 

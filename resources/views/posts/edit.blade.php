@@ -23,7 +23,7 @@
 
 
 
-    <form action="{{  route('posts.update', $user->id) }}" method="POST">
+    <form action="{{  route('posts.update', $post->id) }}" method="POST">
         @csrf
         @method('PUT')
 

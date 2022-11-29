@@ -3,6 +3,25 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+    @php
+        {{
+
+
+            $roles =\Illuminate\Support\Facades\Auth::user()->roles;
+             $isModeratorOrCreator=false;
+        foreach($roles as $role) {
+            if ($role->id == 3) {
+                $isModeratorOrCreator = true;
+            }
+        }
+
+        }}
+        @endphp
+
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -16,7 +35,10 @@
                         </div>
                     @endif
 
-                    <a class= "btn btn-primary" href="{{ route('posts.create') }}">Create New User</a>
+
+
+{{--                    Sould be hidden if guest--}}
+                    <a class= "btn btn-primary" href="{{ route('posts.create') }}">Create New Post</a>
 
                         <table class="table">
                             <thead>
@@ -49,12 +71,20 @@
 {{--                                            @endforeach--}}
 {{--                                        </td>--}}
                                         <td>
+
+
+                                            @if ( $isModeratorOrCreator )
                                             <a class="btn btn-warning"href="{{ route('posts.edit',[ $post->id]) }}">Edit</a>
+                                            @endif
+
+
                                         </td>
                                         <td>
+                                            @if ( $isModeratorOrCreator )
                                             <form method="POST" action="{{ route('posts.destroy',$post->id)}}">
                                                 @csrf
                                             @method('DELETE')
+                                                @endif
                                                 <button type="submit" class=" btn btn-danger">Delete</button>
                                             </form>
                                         </td>

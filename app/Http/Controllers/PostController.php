@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -20,7 +21,7 @@ class PostController extends Controller
 
 //        $users = User::orderBy('name')->get();
 //        $roles = Role::orderBy('name')->get();
-        $posts = Post::orderBy('title')->get();
+        $posts = Post::orderBy('created_at','DESC')->get();
 //        foreach($roles as $role){echo $role->name;}
 
 //        $users =  User::with('roles')->get();
@@ -52,7 +53,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
-
+        $userId = Auth::id();
         $request->validate(
             [
                 'title'=>['required','unique:posts,title','max:100'],
@@ -62,11 +63,15 @@ class PostController extends Controller
         );
 
         Post::create([
-            'title' => $request->title,
+
+
+
+        'title' => $request->title,
             'content'=> $request->content,
             'updated_at' => Carbon::now(),
-        ])->users()->sync($request->user_id);
-        return redirect(route('users.index'))->with('status', 'has been added!');
+        'created_by' =>  $userId,
+        ]);
+        return redirect(route('posts.index'))->with('status', 'Post has been added!');
     }
 
     /**
@@ -88,7 +93,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+//                $roles = Role::orderBy('name')->get();
+                return view('posts.edit',compact(['post']));
     }
 
     /**
@@ -101,6 +107,27 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         //
+        $request->validate(
+            [
+                'title'=>['required','unique:posts,title,'.$post->id,'max:100','max:100'],
+                'content'=>['required','max:100'],
+//                'password'=>['required','max:255']
+            ]
+        );
+
+
+//        $userId = Auth::id();
+
+        $post->title= $request->title;
+        $post->content= $request->content;
+//        $post->updated_by= $request->$userId;
+        $post->updated_at= Carbon::now()->toDateTimeString();
+        $post->save();
+//        $post->roles()->sync($request->role_ids);
+
+
+        return redirect(route('posts.index'))->with('status', 'Post has been updated!');
+
     }
 
     /**
@@ -112,5 +139,8 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+        $post->delete();
+        return redirect(route('posts.index'))->with('status', 'Post has been deleted!');
+
     }
 }
