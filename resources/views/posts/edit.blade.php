@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Users Edit') }}</div>
+                <div class="card-header">{{ __('Post Edit') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -33,35 +33,30 @@
         @csrf
         @method('PUT')
 
-{{--        <div class="form-group">--}}
-{{--            <label for="flag_image_url">Flag Url</label>--}}
-{{--            <input name='flag_image_url' type="text" class="form-control" id="flag_image_url" value="{{old('flag_image_url')??$country->flag_image_url}}" placeholder="enter Flag Url" >--}}
-{{--            @error('flag_image_url')--}}
-{{--            <div class="alert alert-danger">{{$message }}</div>--}}
-{{--            @enderror--}}
-
-{{--        </div>--}}
-
-
         <div class="form-group">
-            <label for="title">Name</label>
+            <label for="title">Title</label>
             <input name='title' type="text" class="form-control" id="title" value="{{ old('title')??$post->title }}" placeholder="Enter Title ">
         </div>
         @error('title')
         <div class="alert alert-danger">{{$message }}</div>
         @enderror
 
-{{--        <div class="form-group">--}}
-{{--            <label for="name">Name</label>--}}
-{{--            <input name='name' type="text" class="form-control" id="name" value="{{old('name')}}" placeholder="Enter User Name">--}}
-{{--        </div>--}}
-{{--        @error('name')--}}
-{{--        <div class="alert alert-danger">{{$message }}</div>--}}
-{{--        @enderror--}}
+
 
 
         <div class="form-group">
-            <label for="content">Email Address</label>
+            <label for="image_url">Image Url</label>
+            <input name='image_url' type="text" class="form-control" id="image_url" value="{{old('image_url')??$post->image_url}}" placeholder="enter Image Url" >
+            @error('image_url')
+            <div class="alert alert-danger">{{$message }}</div>
+            @enderror
+
+
+
+
+
+        <div class="form-group">
+            <label for="content">Content</label>
             <input name='content' type="text" class="form-control" id="content" value="{{ old('content')??$post->content }}" placeholder="Enter Content ">
         </div>
         @error('content')

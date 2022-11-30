@@ -57,6 +57,7 @@ class PostController extends Controller
         $request->validate(
             [
                 'title'=>['required','unique:posts,title','max:100'],
+                'image_url'=>['url', 'ends_with:jpg,jpeg,png,tiff,gif','max:255'],
                 'content'=>['required','max:1500']
 
             ]
@@ -70,6 +71,7 @@ class PostController extends Controller
             'content'=> $request->content,
             'updated_at' => Carbon::now(),
         'created_by' =>  $userId,
+            'image_url'=> $request->image_url
         ]);
         return redirect(route('posts.index'))->with('status', 'Post has been added!');
     }
@@ -110,6 +112,7 @@ class PostController extends Controller
         $request->validate(
             [
                 'title'=>['required','unique:posts,title,'.$post->id,'max:100','max:100'],
+                'image_url'=>['url', 'ends_with:jpg,jpeg,png,tiff,gif','max:255'],
                 'content'=>['required','max:100'],
 //                'password'=>['required','max:255']
             ]
@@ -119,6 +122,7 @@ class PostController extends Controller
 //        $userId = Auth::id();
 
         $post->title= $request->title;
+        $post->image_url = $request->image_url;
         $post->content= $request->content;
 //        $post->updated_by= $request->$userId;
         $post->updated_at= Carbon::now()->toDateTimeString();
