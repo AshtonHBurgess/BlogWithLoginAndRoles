@@ -56,7 +56,16 @@
                             <tbody>
                             @foreach($posts as $post)
                             <tr>
-                                        <td >{{$post->title}}</td>
+                                <td >{{$post->title}}</td>
+                            </tr>
+
+                                <tr>   <img style="border: 1px black solid; height: 20px" src="{{$post->image_url}}">   </tr>
+
+
+                            <tr>
+                                <td>{{$post->content}}</td>
+                            </tr>
+                            <tr>
                                         <td>
 
                                            @php {{
@@ -84,9 +93,10 @@
                                                 <button type="submit" class=" btn btn-danger">Delete</button>
                                             </form>
                                             @endif
-                                                @endforeach
                                         </td>
-                                    </tr>
+                            </tr>
+                                                @endforeach
+
                             </tbody>
                         </table>
 
