@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title',100);
-            $table->string('image_url')->nullable();
-            $table->text('content');
+            $table->string('image_url',255)->nullable();
+            $table->text('content',255);
             $table->foreignId('created_by');
             $table->foreignId('deleted_by')->nullable();
             $table->timestamps();

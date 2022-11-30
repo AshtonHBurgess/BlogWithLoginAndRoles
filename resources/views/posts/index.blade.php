@@ -18,9 +18,6 @@
             }
             }
         @endphp
-
-
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -34,74 +31,48 @@
                         </div>
                     @endif
 
-
-
-{{--                    Sould be hidden if guest--}}
-
                         @if ($notGuest)
                             <a class= "btn btn-primary" href="{{ route('posts.create') }}">Create New Post</a>
                         @endif
-
-
-
-                        <table class="table">
+                        <table class="table"   >
                             <thead>
                             <tr>
-
                                 <th >Posts</th>
 
-{{--                                <th colspan="2">Actions</th>--}}
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($posts as $post)
-                            <tr>
-                                <td >{{$post->title}}</td>
-                            </tr>
-
-                                <tr>   <img style="border: 1px black solid; height: 20px" src="{{$post->image_url}}">   </tr>
-
-
-                            <tr>
-                                <td>{{$post->content}}</td>
-                            </tr>
-                            <tr>
-                                        <td>
-
+                                <div class="card" style="width: 18rem; border-color: #1a1e21">
+                                    <img class="card-img-top" src="{{$post->image_url}}" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{$post->title}}</h5>
+                                        <p class="card-text">{{$post->content}}</p>
+                                    </div>
+                                    <div class="card-body">
                                            @php {{
                                             $isPostCreator=false;
                                             if($notGuest &&  $post->created_by == $activeUser->id) {
                                                $isPostCreator=true;
                                             }
-
                                             }}@endphp
 
-                                            @if ( $isModeratorOrCreator && $notGuest && $isPostCreator)
+                                            @if ( $isModeratorOrCreator && $notGuest || $isPostCreator)
                                             <a class="btn btn-warning"href="{{ route('posts.edit',[ $post->id]) }}">Edit</a>
                                             @endif
 
-
-                                        </td>
-                                        <td>
-                                            @if ( $isModeratorOrCreator && $notGuest && $isPostCreator)
+                                            @if ( $isModeratorOrCreator && $notGuest || $isPostCreator)
                                             <form method="POST" action="{{ route('posts.destroy',$post->id)}}">
-
-
                                                 @csrf
                                             @method('DELETE')
-
                                                 <button type="submit" class=" btn btn-danger">Delete</button>
                                             </form>
                                             @endif
-                                        </td>
-                            </tr>
-                                                @endforeach
-
+                                    </div>
+                                </div>
+                            @endforeach
                             </tbody>
                         </table>
-
-
-
                 </div>
             </div>
         </div>

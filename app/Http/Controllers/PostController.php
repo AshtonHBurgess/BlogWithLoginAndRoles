@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+
+//    $this->middleware('check.user.active')->only('welcome');
+        //want this middleware to run for every crud exept for one
+        //-
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -58,7 +69,7 @@ class PostController extends Controller
             [
                 'title'=>['required','unique:posts,title','max:100'],
                 'image_url'=>['url', 'ends_with:jpg,jpeg,png,tiff,gif','max:255'],
-                'content'=>['required','max:1500']
+                'content'=>['required','max:255']
 
             ]
         );
@@ -113,7 +124,7 @@ class PostController extends Controller
             [
                 'title'=>['required','unique:posts,title,'.$post->id,'max:100','max:100'],
                 'image_url'=>['url', 'ends_with:jpg,jpeg,png,tiff,gif','max:255'],
-                'content'=>['required','max:100'],
+                'content'=>['required','max:255'],
 //                'password'=>['required','max:255']
             ]
         );

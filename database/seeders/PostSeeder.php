@@ -27,7 +27,7 @@ class PostSeeder extends Seeder
         ]);
 
         DB::table('posts')->insert([
-            'title'=>'First post',
+            'title'=>'Second post',
             'image_url'=>'https://png.pngtree.com/png-vector/20190114/ourmid/pngtree-lovely-animal-baby-turtle-marine-life-png-image_330713.jpg',
             'content'=>'First post ..............................................End of First Post',
             'created_at' => Carbon::now(),
@@ -35,7 +35,7 @@ class PostSeeder extends Seeder
         ]);
 
         DB::table('posts')->insert([
-            'title'=>'First post',
+            'title'=>'Thirst post',
             'image_url'=>'https://www.worldometers.info/img/flags/ca-flag.gif',
             'content'=>'First post ..............................................End of First Post',
             'created_at' => Carbon::now(),

@@ -3,7 +3,6 @@
 {{--@error('flag_image_url')--}}
 @extends('layouts.app')
 
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -16,8 +15,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-
 
                     @php
                         $notGuest=false;

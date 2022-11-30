@@ -21,7 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('users',App\Http\Controllers\UserController::class)->middleware(['auth','check.user.active' ]);
+Route::resource('users',App\Http\Controllers\UserController::class);
 Route::resource('posts',App\Http\Controllers\PostController::class);
 //
 //Route::get('activeusers',[App\Http\Controllers\ActiveUsersController::class,'welcome'])
