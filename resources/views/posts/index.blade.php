@@ -17,6 +17,11 @@
                 }
             }
             }
+
+
+
+
+
         @endphp
 <div class="container">
     <div class="row justify-content-center">
@@ -46,29 +51,35 @@
                                 <div class="card" style="width: 18rem; border-color: #1a1e21">
                                     <img class="card-img-top" src="{{$post->image_url}}" alt="Card image cap">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{$post->title}}</h5>
+                                        <h5 class="card-title"><h2>{{$post->title}} </h2></h5>
                                         <p class="card-text">{{$post->content}}</p>
+                                        <p class="card-text">Author: {{$post->createdBy->name}}</p>
+                                        <p class="card-text">Created at:{{$post->created_at}}</p>
+{{--                                        <p class="card-text">{{$post->content}}</p>--}}
                                     </div>
-                                    <div class="card-body">
-                                           @php {{
-                                            $isPostCreator=false;
-                                            if($notGuest &&  $post->created_by == $activeUser->id) {
-                                               $isPostCreator=true;
-                                            }
-                                            }}@endphp
+                                    @auth
+                                        <div class="card-body">
+                                           @php
+                                                $isPostCreator=false;
+                                                if($post->created_by == $activeUser->id) {
+                                                   $isPostCreator=true;
+                                                }
+                                           @endphp
 
-                                            @if ( $isModeratorOrCreator && $notGuest || $isPostCreator)
-                                            <a class="btn btn-warning"href="{{ route('posts.edit',[ $post->id]) }}">Edit</a>
+                                            @if ( $isPostCreator )
+    {{--                                            @if ( $isModeratorOrCreator || $isPostCreator && $notGuest )--}}
+                                                <a class="btn btn-warning"href="{{ route('posts.edit',[ $post->id]) }}">Edit</a>
                                             @endif
 
-                                            @if ( $isModeratorOrCreator && $notGuest || $isPostCreator)
-                                            <form method="POST" action="{{ route('posts.destroy',$post->id)}}">
-                                                @csrf
-                                            @method('DELETE')
-                                                <button type="submit" class=" btn btn-danger">Delete</button>
-                                            </form>
+                                            @if ( $isModeratorOrCreator || $isPostCreator )
+                                                <form method="POST" action="{{ route('posts.destroy',$post->id)}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class=" btn btn-danger">Delete</button>
+                                                </form>
                                             @endif
-                                    </div>
+                                        </div>
+                                    @endauth
                                 </div>
                             @endforeach
                             </tbody>

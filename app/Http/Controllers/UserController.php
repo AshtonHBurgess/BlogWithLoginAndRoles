@@ -15,7 +15,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('check.user.active')->except('welcome');
+        $this->middleware('check.user.useradmin')->except('welcome');
 //    $this->middleware('check.user.active')->only('welcome');
         //want this middleware to run for every crud exept for one
         //-

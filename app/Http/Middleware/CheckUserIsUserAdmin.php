@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckUserIsActive
+class CheckUserIsUserAdmin
 {
     /**
      * Handle an incoming request.
@@ -18,16 +18,13 @@ class CheckUserIsActive
     public function handle(Request $request, Closure $next)
     {
        $roles =Auth::user()->roles;
-         $tr=false;
+
         foreach($roles as $role) {
             if ($role->id == 1) {
-                $tr = true;
+                return $next($request);
             }
         }
-        if($tr){
 
-            return $next($request);
-        }
         return redirect()->back()->with('status','you are not an active user... access denied');
     }
 }

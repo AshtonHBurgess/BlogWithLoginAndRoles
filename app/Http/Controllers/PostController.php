@@ -33,6 +33,7 @@ class PostController extends Controller
 //        $users = User::orderBy('name')->get();
 //        $roles = Role::orderBy('name')->get();
         $posts = Post::orderBy('created_at','DESC')->get();
+
 //        foreach($roles as $role){echo $role->name;}
 
 //        $users =  User::with('roles')->get();
