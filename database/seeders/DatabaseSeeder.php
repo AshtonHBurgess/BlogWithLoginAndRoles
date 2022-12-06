@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PostSeeder::class,
             RoleUserSeeder::class,
-
+            ThemeSeeder::class,
 
         ]);
 

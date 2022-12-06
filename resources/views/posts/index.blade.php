@@ -59,6 +59,8 @@
                                     </div>
                                     @auth
                                         <div class="card-body">
+
+
                                            @php
                                                 $isPostCreator=false;
                                                 if($post->created_by == $activeUser->id) {

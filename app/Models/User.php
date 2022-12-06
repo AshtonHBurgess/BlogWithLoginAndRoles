@@ -59,4 +59,8 @@ class User extends Authenticatable
         return $this->belongsTo(User::class);
     }
 
+    function themes(){
+        return $this->hasMany(Theme::class);
+    }
+
 }
