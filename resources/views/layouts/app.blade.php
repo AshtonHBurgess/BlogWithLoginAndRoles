@@ -53,7 +53,6 @@
 
 
 
-
                         @foreach($themes as $theme)
                                 <li><a class="dropdown-item" href="{{route('changetheme',$theme->id)}}">{{$theme->name}}
                                     @if($theme->id == $selectedTheme->id)&checkmark;
