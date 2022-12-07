@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 
 class ThemeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('check.theme.manager');
+//    $this->middleware('check.user.active')->only('welcome');
+        //want this middleware to run for every crud exept for one
+        //-
+
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -14,7 +16,12 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
+
+    <link rel ="stylesheet" href="{{$selectedTheme->cdn_url}}">
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+
 </head>
 <body>
     <div id="app">
@@ -29,6 +36,47 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+
+
+
+
+
+                    <!-- Example split danger button -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary btn-sm">Themes</button>
+                        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+
+
+
+
+
+
+                        @foreach($themes as $theme)
+                                <li><a class="dropdown-item" href="{{route('changetheme',$theme->id)}}">{{$theme->name}}
+                                    @if($theme->id == $selectedTheme->id)&checkmark;
+
+
+                                    @endif
+
+                                    </a></li>
+                            @endforeach
+
+
+
+
+                        </ul>
+                    </div>
+
+
+
+
+
+
+
+
                     <ul class="navbar-nav me-auto">
 
                     </ul>
@@ -81,6 +129,27 @@
 
 
                             @endif
+
+
+
+
+                            @php
+                             if(Auth::user()->isThemeManager())
+                             {
+                               $tr=true;
+                            }else
+                            {   $tr=false;}
+                            @endphp
+                            @if($tr)
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('themes.index') }}">{{ __('Themes') }}</a>
+                                </li>
+                            @endif
+
+
+
+
+
 
 
                             <li class="nav-item dropdown">

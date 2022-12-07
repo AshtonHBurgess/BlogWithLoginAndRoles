@@ -31,6 +31,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('users',App\Http\Controllers\UserController::class);
 Route::resource('posts',PostController::class);
 Route::resource('themes',ThemeController::class);
+Route::get('changetheme/{id}',function ($id){
+//    ddd($id);
+    return redirect()->back()->cookie('theme',$id,63072800);
+})->name('changetheme');
+
 //
 //Route::get('activeusers',[App\Http\Controllers\ActiveUsersController::class,'welcome'])
 //    ->name('activeusers.welcome')
